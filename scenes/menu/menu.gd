@@ -3,13 +3,14 @@ extends Control
 @onready var btn_play = $MarginContainer/Control/VBoxContainer/PlayButton
 @onready var btn_exit = $MarginContainer/Control/VBoxContainer/ExitButton
 
+var track = preload("res://addons/ggt-core/110_C_UL2_Harp_SP.wav")
 
 func _ready():
 	# needed for gamepads to work
 	btn_play.grab_focus()
 	if OS.has_feature('web'):
 		btn_exit.queue_free() # exit button dosn't make sense on HTML5
-
+	AudioManager.start_music(track, 2.0)
 
 func _on_PlayButton_pressed() -> void:
 	var params = {

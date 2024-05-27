@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://dihkv8bnrkhx8"]
+
+[ext_resource type="Script" path="res://addons/ggt-audio/autoloads/audio_manager.gd" id="1_vydtc"]
+
+[sub_resource type="Animation" id="Animation_i2exb"]
+resource_name = "music_fade_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Music:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
+
+[sub_resource type="Animation" id="Animation_0dwuq"]
+resource_name = "music_fade_out"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bpgos"]
+_data = {
+"music_fade_in": SubResource("Animation_i2exb"),
+"music_fade_out": SubResource("Animation_0dwuq")
+}
+
+[node name="AudioManager" type="Node"]
+script = ExtResource("1_vydtc")
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_bpgos")
+}
