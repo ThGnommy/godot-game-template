@@ -13,22 +13,24 @@ func _ready() -> void:
 	AudioServer.set_bus_layout(BUS_LAYOUT)
 	initial_volume = music.volume_db
 
-func start_music(track: AudioStream, fade_in_duration: float = 0.0) -> void:
-	
+func start_music(track: AudioStream) -> void:
 	music.stream = track
 	music.play()
-	
-	# Is useless to fire the animation if fade_in_duration is nearly zero
-	if !is_zero_approx(fade_in_duration):
-		music_fade_in(fade_in_duration)
 
 func stop_music() -> void:
 	music.stop()
 
-func music_fade_out_and_stop(fade_out_duration: float = 0.0):
-	# Is useless to fire the animation if fade_in_duration is nearly zero	
-	if !is_zero_approx(fade_out_duration):
-		music_fade_out(fade_out_duration)
+func start_music_with_fade_in(track: AudioStream, fade_in_duration: float) -> void:
+	
+	music.stream = track
+	music.play()
+	
+	assert(!is_zero_approx(fade_in_duration), "The fade in duration is nearly 0.0")
+	music_fade_in(fade_in_duration)
+
+func music_fade_out_and_stop(fade_out_duration: float):
+	assert(!is_zero_approx(fade_out_duration), "The fade out duration is nearly 0.0")
+	music_fade_out(fade_out_duration)
 
 func music_fade_in(duration: float = 0.0) -> void:
 	var anim: Animation = animation_player.get_animation("music_fade_in")
